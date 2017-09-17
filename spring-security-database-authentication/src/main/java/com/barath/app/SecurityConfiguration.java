@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -39,10 +40,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+//    @Bean
+//    public UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter(){
+//        UsernamePasswordAuthenticationFilter filter=new UsernamePasswordAuthenticationFilter();
+//        filter.set
+//
+//    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**").authorizeRequests().anyRequest().permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/login_form.html").permitAll()
                 .and()
-                .antMatcher("/user").authorizeRequests().anyRequest().authenticated();
+                .authorizeRequests().anyRequest().authenticated()
+                .and().formLogin().loginPage("/login_form.html").loginProcessingUrl("/login").defaultSuccessUrl("/home.html").permitAll()
+                .and().csrf().disable();
     }
 }

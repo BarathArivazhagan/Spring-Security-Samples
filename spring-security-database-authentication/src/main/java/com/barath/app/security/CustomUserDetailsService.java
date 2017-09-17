@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.lang.invoke.MethodHandles;
 
 
@@ -38,5 +39,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         return userDetails;
+    }
+
+    @PostConstruct
+    public void preloadDefaultUsers(){
+        userRepository.save(new User("barath","barath"));
+        userRepository.save(new User("test","test"));
     }
 }
