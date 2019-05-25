@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name="USER_SECURITY")
+//@Entity
+//@Table(name="USER_SECURITY")
 public class User implements Serializable {
 
     @Id
@@ -17,7 +17,7 @@ public class User implements Serializable {
     @Column(name="USER_NAME",unique = true,length = 50 ,nullable = false)
     private String userName;
 
-    @Column(name="USER_PASSWORD",length = 50,nullable = false)
+    @Column(name="USER_PASSWORD",length = 1000,nullable = false)
     private String password;
 
 
